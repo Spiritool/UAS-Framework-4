@@ -8,9 +8,9 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
-<body class="bg-zinc-100 flex items-center justify-center h-screen">
-  <div class="flex items-center justify-center h-full">
-    <form action="/saveusers" method="POST" class="bg-white shadow-lg rounded-lg overflow-hidden max-w-md flex">
+<body class="bg-black-100 flex flex-col items-center justify-center min-h-screen">
+  <div class="flex items-center justify-center flex-grow">
+    <form action="/saveusers" method="POST" class="bg-white shadow-lg rounded-lg overflow-hidden max-w-md w-full lg:max-w-xl flex">
       <div class="w-1/2">
         <img src="https://source.unsplash.com/600x800/?food" alt="Food" class="w-full h-full object-cover" />
       </div>
@@ -71,7 +71,7 @@
               <input type="checkbox" id="remember" name="remember" />
               <label for="remember" class="text-sm text-zinc-600">Remember me</label>
             </div>
-        </div>
+          </div>
         <br>
         <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
             Register
@@ -84,5 +84,10 @@
     </form>
   </div>
 </body>
+<!-- Footer -->
+<footer class="bg-white-1000 text-white text-center mt-4">
+      <img src="https://www.hokben.co.id/assets/img/group_539.png" alt="Footer Image" class="h-100" />
+    </div>
+</footer>
 
 </html>
