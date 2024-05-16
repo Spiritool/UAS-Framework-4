@@ -1,67 +1,67 @@
 const connection = require('../config/database');
 
-class Model_Kategori {
-    static async getAll() {
+class Model_outlet {
+
+    static async getAll(){
         return new Promise((resolve, reject) => {
-            connection.query('Select * from kategori order by id_kategori desc', (err, rows) => {
+            connection.query('SELECT * FROM outlet ORDER BY id_outlet DESC', (err, rows) => {
                 if (err) {
                     reject(err);
-                }else {
+                } else {
                     resolve(rows);
                 }
-            }); 
-        }); 
+            });
+        });
     }
-    
-    static async Store(Data) {
+
+    static async Store(Data){
         return new Promise((resolve, reject) => {
-            connection.query('insert into kategori set ?', Data , function(err, result){
+            connection.query('INSERT INTO outlet SET ?', Data, (err, result) => {
                 if (err) {
                     reject(err);
-                }else {
+                } else {
                     resolve(result);
                 }
-            }); 
-        }); 
+            });
+        });
     }
-    
-    static async getId(id) {
+
+    static async getId(id){
         return new Promise((resolve, reject) => {
-            connection.query('SELECT * FROM kategori where id_kategori = ' + id, (err, rows) => {
+            connection.query('SELECT * FROM outlet WHERE id_outlet = ?', [id], (err, rows) => {
                 if (err) {
                     reject(err);
-                }else {
+                } else {
                     resolve(rows);
                 }
-            }); 
-        }); 
+            });
+        });
     }
-    
+
     static async Update(id, Data) {
         return new Promise((resolve, reject) => {
-            connection.query('update kategori set ? where id_kategori = ' + id, Data, function(err, result){
+            connection.query('UPDATE outlet SET ? WHERE id_outlet = ?', [Data, id], (err, result) => {
                 if (err) {
                     reject(err);
-                }else {
+                    console.log(err);
+                } else {
                     resolve(result);
                 }
-            }); 
-        }); 
+            });
+        });
     }
-    
+
     static async Delete(id) {
         return new Promise((resolve, reject) => {
-            connection.query('delete from kategori where id_kategori = ' + id, function(err, result){
+            connection.query('DELETE FROM outlet WHERE id_outlet = ?', [id], (err, result) => {
                 if (err) {
                     reject(err);
-                }else {
+                } else {
                     resolve(result);
                 }
-            }); 
-        }); 
+            });
+        });
     }
-    
 }
 
-
-module.exports = Model_Kategori;
+module.exports = Model_outlet;
