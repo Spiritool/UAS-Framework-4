@@ -22,12 +22,12 @@ router.post('/saveusers', async(req, res) => {
   let { Nama, Email, Password, No_telp, Alamat } = req.body;
   let enkripsi = await bcrypt.hash(Password, 10);
   let Data = {
-    Nama,
+    Nama, 
     Email,
     Password : enkripsi,
     No_telp,
     Alamat,
-    level_users : 2
+    level_users : 1
   };
   await Model_Users.Store(Data);
   req.flash('success', 'Berhasil Login');
