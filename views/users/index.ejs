@@ -4,129 +4,333 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food Delivery</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
     <style>
-body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-}
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
 
-header {
-    background-color: white;
-    padding: 10px 20px;
-}
+        header {
+            background-color: white;
+            padding: 10px 20px;
+        }
 
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-.logo img {
-    height: 40px;
-}
+        .logo img {
+            height: 140px;
+            margin-left: 50px; /* Geser logo ke kiri */
+        }
 
-.menu {
-    list-style-type: none;
-    display: flex;
-}
+        .menu {
+            list-style-type: none;
+            display: flex;
+        }
 
-.menu li {
-    margin-right: 20px;
-}
+        .menu li {
+            margin-right: 20px;
+        }
 
-.menu li a {
-    text-decoration: none;
-    color: #808080; /* warna abu-abu */
-    font-weight: bold; /* font gemuk */
-}
+        .menu li a {
+            text-decoration: none;
+            color: #808080; /* warna abu-abu */
+            font-weight: bold; /* font gemuk */
+        }
 
-.menu li a:hover {
-    color: black; /* warna hitam */
-}
+        .menu li a:hover {
+            color: black; /* warna hitam */
+        }
 
-.cart-btn {
-    background-color: red;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-    position: relative;
-}
+        .cart-btn {
+            background-color: red;
+            border: none;
+            padding: 5px 10px; /* Ubah padding */
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            position: relative;
+            height: 30px; /* Tinggi button */
+            width: 60px;
+        }
 
-.cart-btn:hover .cart-icon {
-    fill: black; /* warna hitam saat dihover */
-}
+        .cart-btn:hover .cart-icon {
+            color: black; /* warna hitam saat dihover */
+        }
 
-.cart-icon {
-    margin-right: 5px;
-    fill: white; /* warna putih */
-    height: 20px; /* sesuaikan ukuran ikon */
-}
+        .cart-btn:hover .cart-count {
+            background-color: white; /* warna putih saat dihover */
+        }
 
-.cart-count {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    background-color: white; /* warna putih */
-    color: red; /* warna merah */
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    font-size: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+        .cart-btn:hover .cart-text {
+            color: black; /* warna hitam saat dihover */
+        }
 
-.order-btn {
-    background-color: red; /* warna merah */
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold; /* font gemuk */
-    transition: background-color 0.3s;
-}
+        .cart-icon {
+            margin-right: 5px;
+            fill: white; /* warna putih */
+            height: 20px; /* sesuaikan ukuran ikon */
+        }
 
-.order-btn:hover {
-    background-color: red;
-    color: black;
-}
+        .cart-count {
+            position: absolute;
+            top: 7px;
+            right: 10px;
+            background-color: rgb(255, 255, 255); /* warna merah */
+            color: rgb(255, 0, 0); /* warna putih */
+            width: 20px;
+            height: 17px;
+            border-radius: 30%;
+            font-size: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-.cart-btn:hover .cart-icon {
-    fill: black; /* warna hitam saat dihover */
-}
+        .order-btn {
+            background-color: red; /* warna merah */
+            border: none;
+            color: white;
+            padding: 5px 10px; /* Ubah padding */
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold; /* font gemuk */
+            transition: background-color 0.3s;
+            height: 30px; /* Tinggi button */
+        }
 
+        .order-btn:hover {
+            background-color: red;
+            color: black;
+        }
+
+        .nav-image {
+            width: 100%;
+            display: block;
+            margin: 0;
+            padding: 0;
+        }
+
+        .login-button,
+        .icon-button {
+            position: absolute;
+            top: 6px;
+            background-color: transparent;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold; /* font gemuk */
+            font-family: 'Poppins', sans-serif;
+            margin-left: 1100px;
+        }
+
+        .icon-button {
+            right: 65px;
+        }
+
+        .login-icon {
+            fill: white;
+            height: 20px;
+            margin-left: 5px; /* Perubahan di sini */
+        }
+
+        /* Style untuk keranjang dan Order Now */
+        .cart-and-order {
+            display: flex;
+            align-items: center;
+            height: 30px; /* Tinggi button */
+        }
+
+        .cart-and-order > button {
+            margin-right: 10px;
+        }
+
+        /* Tambah style untuk teks di dalam button */
+        .cart-text {
+            transition: color 0.3s;
+        }
+
+        .menu-toggle {
+            display: none; /* Sembunyikan tombol menu toggle pada layar besar */
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            position: relative;
+            z-index: 999;
+        }
+
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: #333;
+            margin: 5px auto;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Animasi hamburger menu saat di-click */
+        .menu-open .bar:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .menu-open .bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-open .bar:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        @media only screen and (max-width: 768px) {
+            /* Gaya CSS untuk layar tablet */
+            body {
+                margin: 0;
+                font-family: 'Poppins', sans-serif;
+            }
+            .logo img {
+                height: 100px;
+                margin-left: 20px; /* Geser logo ke kiri */ /* Ukuran logo yang lebih kecil di layar tablet */
+            }
+
+            .menu {
+                flex-direction: column; /* Tampilkan menu dalam satu kolom pada layar tablet */
+                align-items: center; /* Pusatkan item menu */
+            }
+
+            .menu li {
+                margin: 10px 0; /* Beri jarak di antara item menu */
+            }
+
+            .cart-btn, .order-btn {
+                font-size: 12px; /* Ukuran teks tombol yang lebih kecil di layar tablet */
+                padding: 5px 8px; /* Ubah padding tombol */
+            }
+            
+            .menu-toggle {
+                display: block; /* Tampilkan tombol menu toggle pada layar kecil */
+            }
+
+            .menu {
+                display: none; /* Sembunyikan menu pada layar kecil */
+                flex-direction: column;
+                position: absolute;
+                top: 110px;
+                left: 0;
+                background-color: white;
+                width: 100%;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            }
+
+            .menu-open {
+                display: flex; /* Tampilkan menu saat tombol toggle aktif */
+            }
+
+            .menu li {
+                margin: 10px;
+            }
+
+            .nav-image {
+                height: 30px;
+                width: 1000px;
+                display: block;
+                margin: 0;
+                padding: 0;
+            }
+
+            .login-button,
+            .icon-button {
+                position: absolute;
+                top: 6px;
+                background-color: transparent;
+                border: none;
+                color: white;
+                font-size: 16px;
+                cursor: pointer;
+                font-weight: bold; /* font gemuk */
+                font-family: 'Poppins', sans-serif;
+                margin-left: -100px;
+            }
+        }
+
+        @media only screen and (max-width: 480px) {
+            /* Gaya CSS untuk layar ponsel */
+            .logo img {
+                height: 80px;
+                margin-left: 10px; /* Geser logo ke kiri */ /* Ukuran logo yang lebih kecil di layar ponsel */
+            }
+
+            .menu {
+                padding: 10px; /* Tambahkan padding ke menu pada layar ponsel */
+            }
+
+            .cart-btn, .order-btn {
+                font-size: 10px; /* Ukuran teks tombol yang lebih kecil di layar ponsel */
+                padding: 5px 6px; /* Ubah padding tombol */
+            }
+
+            .cart-icon {
+                margin-right: 3px; /* Perkecil margin ikon keranjang */
+            }
+        }
     </style>
 </head>
 <body>
+    <img src="images/nav_login.png" alt="Gambar Atas" class="nav-image">
+    <button class="login-button">
+        Masuk
+    </button>
+    <button class="icon-button" style="margin-right: 20px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-fill login-icon" viewBox="0 0 16 16">
+            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+        </svg>
+    </button>
     <header>
         <nav>
             <div class="logo">
-                <img src="logo.png" alt="Logo">
+                <img src="images/HOKBEN.png" alt="Logo">
             </div>
+            <!-- Tombol Menu Toggle Hamburger -->
+            <button class="menu-toggle" aria-label="Toggle Menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <!-- Menu -->
             <ul class="menu">
-                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#" class="active">Beranda</a></li>
                 <li><a href="#">Menu</a></li>
                 <li><a href="#">Outlet</a></li>
                 <li><a href="#">Promotion</a></li>
-                <li><a href="#">Corporate</a></li>
-                <li><a href="#">News & Events</a></li>
-                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">Perusahaan</a></li>
+                <li><a href="#">Berita</a></li>
+                <li><a href="#">Kontak Kami</a></li>
             </ul>
-            <div class="cart">
+            <div class="cart-and-order" style="margin-right: 50px;">
                 <button class="cart-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart-check-fill" viewBox="0 0 16 16">
-                        <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-1.646-7.646-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708.708"/>
-                      </svg>
+                    <i class="fas fa-cart-shopping cart-icon" style="margin-top: 4px; margin-right: 30px;"></i>
                     <span class="cart-count">0</span>
                 </button>
-                <button class="order-btn">Order Now</button>
+                <button class="order-btn">Pesan Sekarang</button>
             </div>
         </nav>
     </header>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const menu = document.querySelector('.menu');
+
+            menuToggle.addEventListener('click', function () {
+                menu.classList.toggle('menu-open');
+            });
+        });
+    </script>
 </body>
 </html>
