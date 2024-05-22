@@ -129,7 +129,8 @@ nav {
 
 /*---LOGIN BUTTON---*/
 .login-button,
-.icon-button {
+.icon-button,
+.a {
   position: absolute;
   top: 6px;
   background-color: transparent;
@@ -547,3 +548,103 @@ nav {
   padding: 0;
   margin-bottom: -20px;
 }
+
+/*---MENU----*/
+
+/*---MENU Section----*/
+.sectionMenu {
+  background-color: #fcb900; /* Warna latar belakang kuning */
+  padding: 25.5px;
+  justify-content: center;
+}
+
+.letakMenu {
+  color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px; /* Anda bisa menyesuaikan lebar maksimum sesuai kebutuhan */
+    position: relative;
+    padding: 0 20px; /* Tambahkan padding untuk memberikan ruang di sisi kiri dan kanan */
+}
+
+.hokbenMenu {
+    font-size: 30px;
+    flex: 1;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: bold;
+}
+
+.hokbenSearch {
+  color: white;
+    margin-left: auto;
+}
+
+/* Pilihan Menu */
+/*---REKOMENDASI SECTION---*/
+.Menu-section {
+  margin-top: 100px; /* Jarak antara section Menu dan section sebelumnya */
+}
+
+/*---Menu TITLE---*/
+.Menu-title {
+  color: #d91319; /* Warna teks merah */
+  font-family: 'Varela Round', sans-serif; /* Font untuk judul */
+  font-weight: 900 !important; /* Teks sangat tebal */
+  text-align: center; /* Rata tengah */
+  margin-bottom: 20px; /* Jarak bawah judul */
+  font-size: 30px;
+}
+
+/*---Menu CARDS CONTAINER---*/
+.Menu-cards {
+  display: flex;
+  flex-wrap: wrap; /* Mengizinkan card untuk membungkus ke baris berikutnya */
+  justify-content: space-around; /* Spasi rata antara card */
+  gap: 20px; /* Jarak antar card */
+  padding-left: 70px;
+  padding-right: 70px;
+}
+
+/*---CARD---*/
+.card {
+  width: 25%; /* Lebar card */
+  border: 1px solid #ccc; /* Garis border abu-abu */
+  border-radius: 10px; /* Sudut border melengkung */
+  text-align: center; /* Teks rata tengah */
+  padding: 20px;
+}
+
+.menu-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.menu-button {
+  background-color: white;
+  border: 2px solid red;
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: red;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.menu-button.active,
+.menu-button:hover {
+  background-color: red;
+  color: white;
+}
+
+.menu-button:focus {
+  outline: none;
+}
+
+/* */
