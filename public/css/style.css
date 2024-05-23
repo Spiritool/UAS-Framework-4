@@ -129,8 +129,7 @@ nav {
 
 /*---LOGIN BUTTON---*/
 .login-button,
-.icon-button,
-.a {
+.icon-button {
   position: absolute;
   top: 6px;
   background-color: transparent;
