@@ -63,47 +63,82 @@
         grid-template-columns: 1fr;
     }
 }
-</style>
 
-<body>
+.icon {
+    font-size: 24px;
+    color: #d91319;
+}
 
-    <img src="../../images/nav_login.png" alt="Gambar Atas" class="nav-image">
+        </style>
 
-    <button class="login-button">
-        <%= email %>
-    </button>
-    <button class="icon-button" style="margin-right: 90px;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-            class="bi bi-person-fill login-icon" viewBox="0 0 16 16">
-            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-        </svg>
-    </button>
+        <img src="../../images/nav_login.png" alt="Gambar Atas" class="nav-image">
 
-    <header>
-        <nav>
-            <!-- Logo -->
-            <div class="logo">
-                <img src="../../images/HOKBEN.png" alt="Logo">
+            <button class="login-button">
+                <%= email %>
+            </button>
+
+        <button class="icon-button" style="margin-right: 90px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-fill login-icon" viewBox="0 0 16 16">
+                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+            </svg>
+        </button>
+
+        <header>
+            <nav>
+                <!-- Logo -->
+                <div class="logo">
+                    <img src="../../images/HOKBEN.png" alt="Logo">
+                </div>
+        
+                <!-- Menu -->
+                <ul class="menu">
+                    <li><a href="/users" class="active">Beranda</a></li>
+
+                    <li><a href="/menu/users">Menu</a></li>
+                    <li><a href="#">Outlet</a></li>
+                    <li><a href="#">Promo</a></li>
+                    <li><a href="#">Perusahaan</a></li>
+                    <li><a href="#">Berita</a></li>
+                    <li><a href="#">Kontak Kami</a></li>
+                </ul>
+        
+                <!-- Cart and Order Buttons -->
+                <div class="cart-and-order" style="margin-right: 50px;">
+                    <button class="cart-btn">
+                        <i class="fas fa-cart-shopping cart-icon" style="margin-top: 4px; margin-right: 30px;"></i>
+                        <span class="cart-count">0</span>
+                    </button>
+                    <button class="order-btn">Pesan Sekarang</button>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Informasi Section -->
+        <section class="sectionMenu">
+            <div class="letakMenu">
+                <!-- Tiga Elemen dalam Satu Baris -->
+                   <h1 class="hokbenMenu">
+                    outlet |  メニュー
+                 </h1>
+                </div>
             </div>
+        </section>
+        
+        <!-- Rekomendasi Section -->
+        <section class="Menu-section">
 
-            <!-- Menu -->
-            <ul class="menu">
-                <li><a href="/users" class="active">Beranda</a></li>
-                <li><a href="/menu/users">Menu</a></li>
-                <li><a href="/outlet/users">Outlet</a></li>
-                <li><a href="#">Promo</a></li>
-                <li><a href="#">Perusahaan</a></li>
-                <li><a href="#">Berita</a></li>
-                <li><a href="#">Kontak Kami</a></li>
-            </ul>
-
-            <!-- Cart and Order Buttons -->
-            <div class="cart-and-order" style="margin-right: 50px;">
-                <button class="cart-btn">
-                    <i class="fas fa-cart-shopping cart-icon" style="margin-top: 4px; margin-right: 30px;"></i>
-                    <span class="cart-count">0</span>
-                </button>
-                <button class="order-btn">Pesan Sekarang</button>
+            <div class="menu-container">
+                <a href="/menu/users" class="menu-button active">Hoka Ramen</a>
+                <a href="#" class="menu-button">Set Menu</a>
+                <a href="#" class="menu-button">Main Menu</a>
+                <a href="#" class="menu-button">HokBen Fried Chicken</a>
+                <a href="#" class="menu-button">Fried Menu</a>
+                <a href="#" class="menu-button">Soup & Sukiyaki</a>
+                <a href="#" class="menu-button">Desserts</a>
+                <a href="#" class="menu-button">Snacks</a>
+                <a href="#" class="menu-button">Beverages</a>
+                <a href="#" class="menu-button">Side Dish</a>
+                <a href="#" class="menu-button">Take Away Bag</a>
             </div>
         </nav>
     </header>
@@ -152,26 +187,43 @@
                     </div>
                 </div>
                 <% } %>
-        </div>
-    </section>
-    <!-- Informasi Section -->
+            </div>
 
-
-    <!-- Footer Section -->
-    <section class="footer-section">
-        <div class="footer-content">
-            <div class="footer-links">
-                <p class="mt-3" style="font-weight: bold;">* Salad & Soup only for Dine In</p>
-                <h3 class="footer-title">TAUTAN</h3>
-                <div class="footer-links-group">
-                    <div class="footer-links-column">
-                        <p class="footer-text"><a href="#">Tentang Kami</a></p>
-                        <p class="footer-text"><a href="#">Kontak Kami</a></p>
-                        <p class="footer-text"><a href="#">Syarat dan Ketentuan</a></p>
+            <% data.forEach(outlet => { %>
+                <div class="card">
+                    <h2><%= outlet.nama_outlet %></h2>
+                    <div class="address"><%= outlet.alamat_outlet %></div>
+                    <div class="open-hour"><%= outlet.jam_buka %> to <%= outlet.jam_tutup %></div>
+                    <div class="status"><%= outlet.status_outlet %></div>
+                    <div class="icons">
+                        <i class="fas fa-utensils icon"></i>
+                        <i class="fas fa-wifi icon"></i>
+                        <i class="fas fa-credit-card icon"></i>
+                        <i class="fas fa-clock icon"></i>
                     </div>
-                    <div class="footer-links-column-2">
-                        <p class="footer-text"><a href="#">Kebijakan Privasi</a></p>
-                        <p class="footer-text"><a href="#">Pelacak Pesanan</a></p>
+                </div>
+            <% }) %>
+
+        </section>
+        <!-- Informasi Section -->
+        
+        
+        <!-- Footer Section -->
+        <section class="footer-section">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <p class="mt-3" style="font-weight: bold;">* Salad & Soup only for Dine In</p>
+                    <h3 class="footer-title">TAUTAN</h3>
+                    <div class="footer-links-group">
+                        <div class="footer-links-column">
+                            <p class="footer-text"><a href="#">Tentang Kami</a></p>
+                            <p class="footer-text"><a href="#">Kontak Kami</a></p>
+                            <p class="footer-text"><a href="#">Syarat dan Ketentuan</a></p>
+                        </div>
+                        <div class="footer-links-column-2">
+                            <p class="footer-text"><a href="#">Kebijakan Privasi</a></p>
+                            <p class="footer-text"><a href="#">Pelacak Pesanan</a></p>
+                        </div>
                     </div>
                 </div>
             </div>
