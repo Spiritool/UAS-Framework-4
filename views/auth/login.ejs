@@ -9,7 +9,9 @@
   <style>
     /* Custom CSS for header */
     .hokben-header {
-      background-color: #ffffff;
+      background-size: cover;
+      color: #4a4a4a; /* Set header text color to grey */
+      padding: 20px 0; /* Increase padding for more space */
     }
 
     .hokben-logo {
@@ -27,7 +29,7 @@
 
     .hokben-nav li {
       display: inline-block;
-      margin-right: 20px;
+      margin-right: 30px; /* Increase margin for more space */
     }
 
     .hokben-nav li:last-child {
@@ -35,12 +37,27 @@
     }
 
     .hokben-nav a {
-      color: #000000; /* Set link color to black */
+      color: #4a4a4a; /* Set link color to grey */
       text-decoration: none;
       font-weight: bold;
     }
 
     .hokben-nav a:hover {
+      text-decoration: underline;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+    }
+
+    .header-right a {
+      color: #4a4a4a; /* Set link color to grey */
+      text-decoration: none;
+      margin-left: 30px; /* Increase margin for more space */
+    }
+
+    .header-right a:hover {
       text-decoration: underline;
     }
 
@@ -84,14 +101,21 @@
       max-width: 300px; /* Set the maximum width of the image */
       margin: auto; /* Center the image vertically */
     }
+
+    .nav-image {
+      width: 100%;
+      height: auto;
+    }
   </style>
 </head>
 
 <body class="bg-zinc-100 flex flex-col items-center justify-center min-h-screen">
+  <img src="../../images/nav_login.png" alt="Gambar Atas" class="nav-image">
+
   <!-- Header -->
-  <header class="hokben-header w-full text-white text-center py-4">
-    <div class="container mx-auto flex items-center justify-center px-4">
-      <nav class="flex items-center">
+  <header class="hokben-header w-full text-center py-4">
+    <div class="container mx-auto flex items-center justify-between px-4">
+      <nav class="flex items-center mx-auto">
         <img src="https://www.hokben.co.id/assets/img/logo_hokben_1.png" alt="HokBen Logo" class="hokben-logo mr-4">
         <ul class="hokben-nav">
           <li><a href="#">Home</a></li>
@@ -101,6 +125,11 @@
           <li><a href="#">Contact</a></li>
         </ul>
       </nav>
+      <div class="header-right">
+        <a href="#">Login</a>
+        <a href="#">ID</a>
+        <a href="#">EN</a>
+      </div>
     </div>
   </header>
 
