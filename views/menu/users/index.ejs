@@ -6,224 +6,202 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../css/style.css"> <!-- Tautan ke file CSS -->
-
 </head>
-    <body>
-        <style>
-                    .Menu-section {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
+<style>
+.menu-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Default: Three columns */
+    gap: 15px; /* Space between items */
+    padding: 15px; /* Container padding */
+    max-width: 1200px; /* Maximum width of the container */
+    margin: 0 auto; /* Center the container */
 }
 
-.card {
-    background-color: #ffffff;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    width: 300px;
-    padding: 20px;
+.menu-button {
+    padding: 10px 20px;
+    border: 1px solid #b10e15;
+    border-radius: 35px;
     text-align: center;
-    flex-shrink: 0;
+    text-decoration: none;
+    color: #b10e15; /* Original text color */
+    font-size: 1em;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-h2 {
-    color: #d91319;
-    margin-bottom: 10px;
+
+/* Large screens: Five columns */
+@media (min-width: 1200px) {
+    .menu-container {
+        grid-template-columns: repeat(5, 1fr);
+    }
 }
 
-.address {
-    color: #555555;
-    font-size: 14px;
-    margin-bottom: 10px;
+/* Medium screens: Four columns */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .menu-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 
-.open-hour {
-    font-weight: bold;
-    margin-bottom: 10px;
+/* Small screens: Three columns */
+@media (min-width: 768px) and (max-width: 991px) {
+    .menu-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
-.status {
-    color: green;
-    font-weight: bold;
-    margin-bottom: 10px;
+/* Extra small screens: Two columns */
+@media (max-width: 767px) {
+    .menu-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
-.distance {
-    font-size: 14px;
-    margin-bottom: 10px;
+/* Very small screens: One column */
+@media (max-width: 576px) {
+    .menu-container {
+        grid-template-columns: 1fr;
+    }
 }
+</style>
 
-.icons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
+<body>
 
-.icon {
-    font-size: 24px;
-    color: #d91319;
-}
+    <img src="../../images/nav_login.png" alt="Gambar Atas" class="nav-image">
 
-        </style>
+    <button class="login-button">
+        <%= email %>
+    </button>
+    <button class="icon-button" style="margin-right: 90px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+            class="bi bi-person-fill login-icon" viewBox="0 0 16 16">
+            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+        </svg>
+    </button>
 
-        <img src="../../images/nav_login.png" alt="Gambar Atas" class="nav-image">
-<<<<<<<< HEAD:views/menu/users/index.ejs
-            <button class="login-button">
-                <%= email %>
-            </button>
-========
-        <button class="login-button">
-            Masuk
-        </button>
->>>>>>>> 85f69c0fc895f4cf2f84874daf02977b35cec3bb:views/outlet/users/index.ejs
-        <button class="icon-button" style="margin-right: 90px;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-fill login-icon" viewBox="0 0 16 16">
-                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-            </svg>
-        </button>
-
-        <header>
-            <nav>
-                <!-- Logo -->
-                <div class="logo">
-                    <img src="../../images/HOKBEN.png" alt="Logo">
-                </div>
-        
-                <!-- Menu -->
-                <ul class="menu">
-                    <li><a href="/users" class="active">Beranda</a></li>
-<<<<<<<< HEAD:views/menu/users/index.ejs
-                    <li><a href="/menu/users">Menu</a></li>
-========
-                    <li><a href="#">Menu</a></li>
->>>>>>>> 85f69c0fc895f4cf2f84874daf02977b35cec3bb:views/outlet/users/index.ejs
-                    <li><a href="#">Outlet</a></li>
-                    <li><a href="#">Promo</a></li>
-                    <li><a href="#">Perusahaan</a></li>
-                    <li><a href="#">Berita</a></li>
-                    <li><a href="#">Kontak Kami</a></li>
-                </ul>
-        
-                <!-- Cart and Order Buttons -->
-                <div class="cart-and-order" style="margin-right: 50px;">
-                    <button class="cart-btn">
-                        <i class="fas fa-cart-shopping cart-icon" style="margin-top: 4px; margin-right: 30px;"></i>
-                        <span class="cart-count">0</span>
-                    </button>
-                    <button class="order-btn">Pesan Sekarang</button>
-                </div>
-            </nav>
-        </header>
-
-        <!-- Informasi Section -->
-        <section class="sectionMenu">
-            <div class="letakMenu">
-                <!-- Tiga Elemen dalam Satu Baris -->
-                   <h1 class="hokbenMenu">
-                    outlet |  メニュー
-                 </h1>
-                </div>
+    <header>
+        <nav>
+            <!-- Logo -->
+            <div class="logo">
+                <img src="../../images/HOKBEN.png" alt="Logo">
             </div>
-        </section>
-        
-        <!-- Rekomendasi Section -->
-        <section class="Menu-section">
-<<<<<<<< HEAD:views/menu/users/index.ejs
-            <div class="menu-container">
-                <a href="/menu/users" class="menu-button active">Hoka Ramen</a>
-                <a href="#" class="menu-button">Set Menu</a>
-                <a href="#" class="menu-button">Main Menu</a>
-                <a href="#" class="menu-button">HokBen Fried Chicken</a>
-                <a href="#" class="menu-button">Fried Menu</a>
-                <a href="#" class="menu-button">Soup & Sukiyaki</a>
-                <a href="#" class="menu-button">Desserts</a>
-                <a href="#" class="menu-button">Snacks</a>
-                <a href="#" class="menu-button">Beverages</a>
-                <a href="#" class="menu-button">Side Dish</a>
-                <a href="#" class="menu-button">Take Away Bag</a>
+
+            <!-- Menu -->
+            <ul class="menu">
+                <li><a href="/users" class="active">Beranda</a></li>
+                <li><a href="/menu/users">Menu</a></li>
+                <li><a href="/outlet/users">Outlet</a></li>
+                <li><a href="#">Promo</a></li>
+                <li><a href="#">Perusahaan</a></li>
+                <li><a href="#">Berita</a></li>
+                <li><a href="#">Kontak Kami</a></li>
+            </ul>
+
+            <!-- Cart and Order Buttons -->
+            <div class="cart-and-order" style="margin-right: 50px;">
+                <button class="cart-btn">
+                    <i class="fas fa-cart-shopping cart-icon" style="margin-top: 4px; margin-right: 30px;"></i>
+                    <span class="cart-count">0</span>
+                </button>
+                <button class="order-btn">Pesan Sekarang</button>
             </div>
-            <div class="Menu-cards">
-                <% for(var i=0; i < data.length; i++) { %>
+        </nav>
+    </header>
+
+    <!-- Informasi Section -->
+    <section class="sectionMenu">
+        <div class="letakMenu">
+            <!-- Tiga Elemen dalam Satu Baris -->
+            <h1 class="hokbenMenu">
+                Menu | メニュー
+            </h1>
+        </div>
+        </div>
+    </section>
+
+    <!-- Rekomendasi Section -->
+    <section class="Menu-section">
+        <div class="menu-container">
+            <a href="/menu/users" class="menu-button active">Hoka Ramen</a>
+            <a href="#" class="menu-button">Set Menu</a>
+            <a href="#" class="menu-button">Main Menu</a>
+            <a href="#" class="menu-button">HokBen Fried Chicken</a>
+            <a href="#" class="menu-button">Fried Menu</a>
+            <a href="#" class="menu-button">Soup & Sukiyaki</a>
+            <a href="#" class="menu-button">Desserts</a>
+            <a href="#" class="menu-button">Snacks</a>
+            <a href="#" class="menu-button">Beverages</a>
+            <a href="#" class="menu-button">Side Dish</a>
+            <a href="#" class="menu-button">Take Away Bag</a>
+        </div>
+        <div class="Menu-cards">
+            <% for(var i=0; i < data.length; i++) { %>
                 <div class="card">
                     <img src="/images/menu/<%= data[i].gambar_menu %>" alt="Product 1" class="card-image">
                     <div class="keterangan">
-                        <p><strong><%= data[i].nama_menu %></strong></p>
-                        <p><%= data[i].harga_menu %></p>
+                        <p><strong>
+                                <%= data[i].nama_menu %>
+                            </strong></p>
+                        <p>
+                            <%= data[i].harga_menu %>
+                        </p>
                         <div class="details">
                             <p style="color: #d91319; text-decoration: underline;">Detail</p>
                             <button class="pesan-button">+ Pesan</button>
                         </div>
                     </div>
-                </div>                
+                </div>
                 <% } %>
-            </div>
-========
-            <% data.forEach(outlet => { %>
-                <div class="card">
-                    <h2><%= outlet.nama_outlet %></h2>
-                    <div class="address"><%= outlet.alamat_outlet %></div>
-                    <div class="open-hour"><%= outlet.jam_buka %> to <%= outlet.jam_tutup %></div>
-                    <div class="status"><%= outlet.status_outlet %></div>
-                    <div class="icons">
-                        <i class="fas fa-utensils icon"></i>
-                        <i class="fas fa-wifi icon"></i>
-                        <i class="fas fa-credit-card icon"></i>
-                        <i class="fas fa-clock icon"></i>
+        </div>
+    </section>
+    <!-- Informasi Section -->
+
+
+    <!-- Footer Section -->
+    <section class="footer-section">
+        <div class="footer-content">
+            <div class="footer-links">
+                <p class="mt-3" style="font-weight: bold;">* Salad & Soup only for Dine In</p>
+                <h3 class="footer-title">TAUTAN</h3>
+                <div class="footer-links-group">
+                    <div class="footer-links-column">
+                        <p class="footer-text"><a href="#">Tentang Kami</a></p>
+                        <p class="footer-text"><a href="#">Kontak Kami</a></p>
+                        <p class="footer-text"><a href="#">Syarat dan Ketentuan</a></p>
                     </div>
-                </div>
-            <% }) %>
->>>>>>>> 85f69c0fc895f4cf2f84874daf02977b35cec3bb:views/outlet/users/index.ejs
-        </section>
-        <!-- Informasi Section -->
-        
-        
-        <!-- Footer Section -->
-        <section class="footer-section">
-            <div class="footer-content">
-                <div class="footer-links">
-                    <p class="mt-3" style="font-weight: bold;">* Salad & Soup only for Dine In</p>
-                    <h3 class="footer-title">TAUTAN</h3>
-                    <div class="footer-links-group">
-                        <div class="footer-links-column">
-                            <p class="footer-text"><a href="#">Tentang Kami</a></p>
-                            <p class="footer-text"><a href="#">Kontak Kami</a></p>
-                            <p class="footer-text"><a href="#">Syarat dan Ketentuan</a></p>
-                        </div>
-                        <div class="footer-links-column-2">
-                            <p class="footer-text"><a href="#">Kebijakan Privasi</a></p>
-                            <p class="footer-text"><a href="#">Pelacak Pesanan</a></p>
-                        </div>
+                    <div class="footer-links-column-2">
+                        <p class="footer-text"><a href="#">Kebijakan Privasi</a></p>
+                        <p class="footer-text"><a href="#">Pelacak Pesanan</a></p>
                     </div>
                 </div>
             </div>
-            <div class="footer-logo">
-                <img src="../../images/deliver.png" alt="Logo footer" class="gambar-footer">
-            </div>
-            <div class="footer-sosmed">
-                <p class="footer-text ikuti-kami">IKUTI KAMI</p>
-                <img src="../../images/yt.png" alt="Logo YouTube">
-                <img src="../../images/tweet.png" alt="Logo Twitter">
-                <img src="../../images/fb.png" alt="Logo Facebook">
-                <img src="../../images/ig.png" alt="Logo Instagram">
-                <img src="../../images/tiktok.png" alt="Logo TikTok">
-                <img src="../../images/wa.png" alt="Logo WhatsApp">
-            </div>
-            <!-- Tambahkan gambar-gambar sosial media tambahan di sini -->
-                <img src="../../images/dw_app.png" alt="Extra Image 1" class="sosmed-extra-1">
-                <img src="../../images/dw_gugel.png" alt="Extra Image 2" class="sosmed-extra-2">
-            <div class="text-footer">
-            <p >Semua gambar dan materi dilindungi hak cipta dan merupakan milik PT Eka Bogainti. 
+        </div>
+        <div class="footer-logo">
+            <img src="../../images/deliver.png" alt="Logo footer" class="gambar-footer">
+        </div>
+        <div class="footer-sosmed">
+            <p class="footer-text ikuti-kami">IKUTI KAMI</p>
+            <img src="../../images/yt.png" alt="Logo YouTube">
+            <img src="../../images/tweet.png" alt="Logo Twitter">
+            <img src="../../images/fb.png" alt="Logo Facebook">
+            <img src="../../images/ig.png" alt="Logo Instagram">
+            <img src="../../images/tiktok.png" alt="Logo TikTok">
+            <img src="../../images/wa.png" alt="Logo WhatsApp">
+        </div>
+        <!-- Tambahkan gambar-gambar sosial media tambahan di sini -->
+        <img src="../../images/dw_app.png" alt="Extra Image 1" class="sosmed-extra-1">
+        <img src="../../images/dw_gugel.png" alt="Extra Image 2" class="sosmed-extra-2">
+        <div class="text-footer">
+            <p>Semua gambar dan materi dilindungi hak cipta dan merupakan milik PT Eka Bogainti.
                 Penggunaan dan / atau duplikasi gambar dan materi ini tanpa izin adalah melanggar hukum.</p>
-            </div>
+        </div>
 
-            <img src="../../images/frame_bawah.png" alt="backgorund footer" class="bg-footer">
-        </section>
+        <img src="../../images/frame_bawah.png" alt="backgorund footer" class="bg-footer">
+    </section>
 
-        
+
 
     <script src="../../js/script.js"></script> <!-- Tautan ke file JavaScript -->
-    </body>
+</body>
+
 </html>
