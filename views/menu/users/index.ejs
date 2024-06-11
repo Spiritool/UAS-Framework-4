@@ -113,35 +113,6 @@
             </nav>
         </header>
 
-        <!-- Informasi Section -->
-        <section class="sectionMenu">
-            <div class="letakMenu">
-                <!-- Tiga Elemen dalam Satu Baris -->
-                   <h1 class="hokbenMenu">
-                    outlet |  メニュー
-                 </h1>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Rekomendasi Section -->
-        <section class="Menu-section">
-
-            <div class="menu-container">
-                <a href="/menu/users" class="menu-button active">Hoka Ramen</a>
-                <a href="#" class="menu-button">Set Menu</a>
-                <a href="#" class="menu-button">Main Menu</a>
-                <a href="#" class="menu-button">HokBen Fried Chicken</a>
-                <a href="#" class="menu-button">Fried Menu</a>
-                <a href="#" class="menu-button">Soup & Sukiyaki</a>
-                <a href="#" class="menu-button">Desserts</a>
-                <a href="#" class="menu-button">Snacks</a>
-                <a href="#" class="menu-button">Beverages</a>
-                <a href="#" class="menu-button">Side Dish</a>
-                <a href="#" class="menu-button">Take Away Bag</a>
-            </div>
-        </nav>
-    </header>
 
     <!-- Informasi Section -->
     <section class="sectionMenu">
@@ -181,28 +152,13 @@
                             <%= data[i].harga_menu %>
                         </p>
                         <div class="details">
-                            <p style="color: #d91319; text-decoration: underline;">Detail</p>
+                            <a  href="/menu/users/<%= data[i].id_menu %>" style="color: #d91319; text-decoration: underline;">Detail</a>
                             <button class="pesan-button">+ Pesan</button>
                         </div>
                     </div>
                 </div>
                 <% } %>
             </div>
-
-            <% data.forEach(outlet => { %>
-                <div class="card">
-                    <h2><%= outlet.nama_outlet %></h2>
-                    <div class="address"><%= outlet.alamat_outlet %></div>
-                    <div class="open-hour"><%= outlet.jam_buka %> to <%= outlet.jam_tutup %></div>
-                    <div class="status"><%= outlet.status_outlet %></div>
-                    <div class="icons">
-                        <i class="fas fa-utensils icon"></i>
-                        <i class="fas fa-wifi icon"></i>
-                        <i class="fas fa-credit-card icon"></i>
-                        <i class="fas fa-clock icon"></i>
-                    </div>
-                </div>
-            <% }) %>
 
         </section>
         <!-- Informasi Section -->
@@ -212,7 +168,6 @@
         <section class="footer-section">
             <div class="footer-content">
                 <div class="footer-links">
-                    <p class="mt-3" style="font-weight: bold;">* Salad & Soup only for Dine In</p>
                     <h3 class="footer-title">TAUTAN</h3>
                     <div class="footer-links-group">
                         <div class="footer-links-column">
