@@ -183,11 +183,12 @@ router.get('/users', async function (req, res, next) {
         let rows = await Model_Menu.getAll();
         res.render('menu/users/index', {
             data: rows,
-            email: Data[0].email
+            email: Data[0].email,
+            id_users: req.session.userId
         })
     } catch {
         req.flash('invalid', 'Anda harus login');
-        res.redirect('/login')
+        // res.redirect('/login')
     }
 });
 
@@ -201,7 +202,8 @@ router.get('/users/(:id)', async function (req, res, next) {
         if (Data[0].level_users == "1") {
             res.render('menu/users/detail', {
                 data: rows[0],
-                email: Data[0].email
+                email: Data[0].email,
+                id_users: req.session.userId
             })
         }
     } catch {
