@@ -3,16 +3,28 @@ const connection = require('../config/database');
 class Model_Pembayaran {
 
     static async getAll() {
-        return new Promise((resolve, reject) => {
-            connection.query('select * from pembayaran order by id_pembayaran desc', (err, rows) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(rows);
-                }
+        try {
+            const rows = await new Promise((resolve, reject) => {
+                connection.query(
+                    'SELECT pembayaran.*, menu.nama_menu, users.nama AS nama ' +
+                    'FROM pembayaran ' +
+                    'INNER JOIN menu ON pembayaran.id_menu = menu.id_menu ' +
+                    'INNER JOIN users ON pembayaran.id_users = users.id_users;',
+                    (err, rows) => {
+                        if (err) {
+                            reject(err);
+                        } else {
+                            resolve(rows);
+                        }
+                    }
+                );
             });
-        });
+            return rows;
+        } catch (error) {
+            throw error;
+        }
     }
+    
 
     static async Store(Data) {
         return new Promise((resolve, reject) => {

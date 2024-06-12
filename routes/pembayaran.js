@@ -6,6 +6,16 @@ const Model_Users = require('../model/Model_Users.js')
 const Model_Service = require('../model/Model_Service.js');
 const Model_Menu = require('../model/Model_Menu.js');
 
+router.get('/pemesanan', async (req, res, next) => {
+    try {
+        let rows = await Model_Pembayaran.getAll();
+        res.render('pemesanan', { data: rows });
+    } catch (error) {
+        next(error);
+    }
+});
+
+
 router.get('/checkout/:id', async function (req, res, next) {
     try {
         let id = req.params.id; // Ambil ID dari URL
@@ -22,7 +32,7 @@ router.get('/checkout/:id', async function (req, res, next) {
             });
         } else {
             req.flash('failure', 'Anda harus admin');
-            res.redirect('/sevice');
+            res.redirect('/service');
             console.log(Data[0].level_users);
         }
     } catch (error) {
