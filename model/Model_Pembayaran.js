@@ -36,14 +36,14 @@ class Model_Pembayaran {
             } = Data;
 
             // Check if there is an existing unpaid payment with the same id_menu and id_users
-            const checkQuery = 'SELECT * FROM pembayaran WHERE id_menu = ? AND id_users = ? AND status_pembayaran = "belum dibayar"';
+            const checkQuery = 'SELECT * FROM pembayaran WHERE id_menu = ? AND id_users = ? AND status_pembayaran = "order"';
             connection.query(checkQuery, [id_menu, id_users], function (checkErr, checkResult) {
                 if (checkErr) {
                     reject(checkErr);
                     console.log(checkErr);
                 } else if (checkResult.length > 0) {
                     // If found, update the jumlah
-                    const updateQuery = 'UPDATE pembayaran SET jumlah = jumlah + ? WHERE id_menu = ? AND id_users = ? AND status_pembayaran = "belum dibayar"';
+                    const updateQuery = 'UPDATE pembayaran SET jumlah = jumlah + ? WHERE id_menu = ? AND id_users = ? AND status_pembayaran = "order"';
                     connection.query(updateQuery, [jumlah, id_menu, id_users], function (updateErr, updateResult) {
                         if (updateErr) {
                             reject(updateErr);
@@ -76,7 +76,7 @@ class Model_Pembayaran {
             connection.query(`SELECT a.*, b.gambar_menu, b.nama_menu, b.harga_menu 
                 FROM pembayaran AS a
                 JOIN menu AS b ON b.id_menu=a.id_menu
-                WHERE a.id_users = ? AND a.status_pembayaran = 'belum dibayar'`, id, (err, rows) => {
+                WHERE a.id_users = ? AND a.status_pembayaran = 'order'`, id, (err, rows) => {
                 if (err) {
                     reject(err);
                 } else {
@@ -99,6 +99,21 @@ class Model_Pembayaran {
             })
         });
     }
+
+    static async Updatejumlah(id, Data) {
+        return new Promise((resolve, reject) => {
+            let query = connection.query('UPDATE pembayaran SET ? WHERE id_pembayaran = ?', [Data, id], function (err, row, result) {
+                if (err) {
+                    reject(err);
+                    console.log(err);
+                } else {
+                    resolve(result);
+                    console.log(row);
+                }
+            });
+        });
+    }
+    
 
     static async Delete(id) {
         return new Promise((resolve, reject) => {
