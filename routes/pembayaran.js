@@ -6,14 +6,14 @@ const Model_Users = require('../model/Model_Users.js')
 const Model_Service = require('../model/Model_Service.js');
 const Model_Menu = require('../model/Model_Menu.js');
 
-router.get('/checkout/:(id)', async function (req, res, next) {
+router.get('/checkout/:id', async function (req, res, next) {
     try {
         let id = req.params.id; // Ambil ID dari URL
         let level_users = req.session.level;
         let Data = await Model_Pembayaran.getId(id); // Panggil fungsi untuk mendapatkan data berdasarkan ID
         let data_s = await Model_Service.getAll();
         console.log("Data:", Data); // Tambahkan console.log untuk menampilkan Data
-        if (Data.length > 0 && Data[0].level_users == "1") { // Periksa apakah ada data dan level_users adalah "1"
+        if (Data.length > 0) { // Periksa apakah ada data dan level_users adalah "1"
             res.render('pembayaran/checkout', {
                 data: Data,
                 email: Data[0].email,
@@ -53,7 +53,7 @@ router.post('/store', async function (req, res, next) {
 })
 
 router.post('/update/(:id)', async function (req, res, next) {
-    // try {
+    try {
     let id = req.params.id;
     let rows = await Model_Menu.getId(id);
 
@@ -68,10 +68,10 @@ router.post('/update/(:id)', async function (req, res, next) {
     console.log(Data);
     req.flash('success', 'Berhasil mengubah data');
     res.redirect('/menu/users')
-    // } catch {
-    //     req.flash('error', 'terjadi kesalahan pada fungsi');
-    //     res.redirect('/menu');
-    // }
+    } catch {
+        req.flash('error', 'terjadi kesalahan pada fungsi');
+        res.redirect('/menu');
+    }
 })
 
 

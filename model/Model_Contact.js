@@ -1,12 +1,10 @@
 const connection = require('../config/database');
 
-class Model_Menu {
+class Model_Contact {
 
     static async getAll(){
         return new Promise((resolve, reject) => {
-            connection.query(`select *, b.nama_kategori from menu as a
-            join kategori as b on b.id_kategori=a.id_kategori
-            order by a.id_menu desc`, (err, rows) => {
+            connection.query('select * from contact order by id_contact desc', (err, rows) => {
                 if(err){
                     reject(err);
                 } else {
@@ -18,28 +16,23 @@ class Model_Menu {
 
     static async Store(Data){
         return new Promise((resolve, reject) => {
-            connection.query('insert into menu set ?', Data, function(err, result){
+            connection.query('INSERT INTO contact SET ?', Data, function(err, result){
                 if(err){
                     reject(err);
-                    console.log(err);
                 } else {
                     resolve(result);
                 }
-            })
+            });
         });
     }
 
-    static async getbyId(id){
-        console.log('ID passed to getId:', id);
+    static async getId(id){
         return new Promise((resolve, reject) => {
-            connection.query(`select *, b.nama_kategori from menu as a
-            join kategori as b on b.id_kategori=a.id_kategori
-            where a.id_menu = ` + id, (err,rows) => {
+            connection.query('select * from contact where id_contact = ' + id, (err,rows) => {
                 if(err) {
                     reject(err);
                 } else {
                     resolve(rows);
-                    console.log(id);
                 }
             })
         })
@@ -47,13 +40,12 @@ class Model_Menu {
 
     static async Update(id, Data) {
         return new Promise((resolve, reject) => {
-            connection.query('update menu set ? where id_menu =' + id, Data, function(err, result){
+            connection.query('update contact set ? where id_contact' + id, Data, function(err, result){
                 if(err){
                     reject(err);
                     console.log(err);
                 } else {
                     resolve(result);
-                    console.log(Data)
                 }
             })
         });
@@ -61,7 +53,7 @@ class Model_Menu {
 
     static async Delete(id) {
         return new Promise((resolve, reject) => {
-            connection.query('delete from menu where id_menu =' + id, function(err,result){
+            connection.query('delete from contact where id_contact =' + id, function(err,result){
                 if(err) {
                     reject(err);
                 } else {
@@ -71,19 +63,7 @@ class Model_Menu {
         });
     }
 
-    static async getId(id_kategori){
-        return new Promise((resolve, reject) => {
-            connection.query('SELECT * FROM menu WHERE id_kategori = ?', [id_kategori], function(error, results) {
-                if (error) {
-                    return reject(error);
-                }
-                resolve(results);
-            });
-        })
-    }
-
-   
 }
 
 
-module.exports = Model_Menu;
+module.exports = Model_Contact;

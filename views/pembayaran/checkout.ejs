@@ -212,6 +212,12 @@
                 <option value="<%= data_service[i].id_service %>"><%= data_service[i].nama_service %></option>
             <% } %>
         </select>
+        <div class="mb-3">
+            <label for="total" class="form-label">Total</label>
+            <input type="text" class="form-control" id="total" name="total" readonly>
+        </div>
+        
+
         <div class="row">
             <div class="col">
                 <table class="table mt-5 table-borderless">
@@ -298,114 +304,29 @@
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
 </script>
 <script src="../../js/script.js"></script> <!-- Tautan ke file JavaScript -->
+
 </body>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var quantityInput = document.querySelector('.quantity-input');
-        var minusButton = document.querySelector('.minus-btn');
-        var plusButton = document.querySelector('.plus-btn');
+    // Mendapatkan elemen input total
+    var totalInput = document.getElementById('total');
+    
+    // Inisialisasi total harga
+    var totalHarga = 0;
+    
+    // Iterasi melalui array data
+    <% for(var i=0; i < data.length; i++){ %>
+    // Menambahkan harga_menu ke total harga
+    totalHarga += <%= data[i].harga_menu %>;
+    <% } %>
 
-        minusButton.addEventListener('click', function (event) {
-            event.preventDefault(); // Prevent default form submission behavior
-            event.stopPropagation(); // Stop the event from bubbling up and closing the modal
-            if (quantityInput.value > 1) {
-                quantityInput.value = parseInt(quantityInput.value) - 1;
-            }
-        });
-
-        plusButton.addEventListener('click', function (event) {
-            event.preventDefault(); // Prevent default form submission behavior
-            event.stopPropagation(); // Stop the event from bubbling up and closing the modal
-            quantityInput.value = parseInt(quantityInput.value) + 1;
-        });
-    });
-
-    document.addEventListener('DOMContentLoaded', function () {
-        var modalMenuIdInput = document.querySelector('.modal-menu-id');
-        var modalUserIdInput = document.querySelector('.modal-user-id');
-        var modalJumlahInput = document.querySelector('.quantity-input');
-
-        document.querySelectorAll('.pesan-button').forEach(function (button) {
-            button.addEventListener('click', function (event) {
-                var id_menu = event.target.dataset.idMenu;
-                var id_users = event.target.dataset.idUsers;
-                var jumlah = modalJumlahInput.value;
-
-                modalMenuIdInput.value = id_menu;
-                modalUserIdInput.value = id_users;
-                modalJumlahInput.value = jumlah;
-            });
-        });
-    });
-
-    document.querySelector('.submit').addEventListener('click', function (event) {
-        event.preventDefault(); // Prevent default form submission behavior
-
-        // Mengambil nilai dari input
-        var jumlah = document.querySelector('input[name="jumlah"]').value;
-        var id_menu = document.querySelector('.modal-menu-id').value;
-        var id_users = document.querySelector('.modal-user-id').value;
-
-        // Membuat objek data untuk dikirim ke server
-        var data = {
-            jumlah: jumlah,
-            id_menu: id_menu,
-            id_users: id_users
-        };
-
-        // Mengirim data ke server menggunakan fetch API
-        fetch('/pembayaran/store', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => {
-                // Handle respons dari server
-                if (response.ok) {
-                    // Jika pesanan berhasil diproses, redirect pengguna ke halaman '/menu/users'
-                    window.location.href = '/menu/users';
-                } else {
-                    // Jika terjadi kesalahan dalam pemrosesan pesanan, tampilkan pesan kesalahan
-                    console.error('Terjadi kesalahan dalam pemrosesan pesanan.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    });
-
-    document.addEventListener('DOMContentLoaded', function () {
-        var modal = document.getElementById('exampleModal');
-        var modalImage = document.getElementById('modal-image');
-        var modalPrice = document.getElementById('modal-price');
-        var modalComposition = document.getElementById('modal-composition');
-        var modalMenuIdInput = document.querySelector('.modal-menu-id');
-        var modalUserIdInput = document.querySelector('.modal-user-id');
-
-        document.querySelectorAll('.pesan-button').forEach(function (button) {
-            button.addEventListener('click', function (event) {
-                var id_menu = event.target.dataset.idMenu;
-                var id_users = event.target.dataset.idUsers;
-
-                var card = event.target.closest('.card');
-                var imageSrc = card.querySelector('.card-image').src;
-                var price = card.querySelector('.keterangan p:nth-child(2)').innerText;
-                var composition = card.querySelector('.keterangan p:nth-child(3)').innerText;
-
-                modalImage.src = imageSrc;
-                modalPrice.innerText = 'Rp. ' + price;
-                modalComposition.innerText = composition;
-
-                // Set the value of the hidden input fields
-                modalMenuIdInput.value = id_menu;
-                modalUserIdInput.value = id_users;
-            });
-        });
-    });
+    
+    // Menetapkan nilai total ke input total
+    totalInput.value = totalHarga;
 </script>
+
+
+
 
 
 

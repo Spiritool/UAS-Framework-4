@@ -203,7 +203,7 @@ router.get('/users/(:id)', async function (req, res, next) {
         // let level_users = req.session.level;
         let id = req.params.id;
         let id_users = req.session.userId;
-        let rows = await Model_Menu.getId(id);
+        let rows = await Model_Menu.getbyId(id);
         let Data = await Model_Users.getId(id_users);
         if (Data[0].level_users == "1") {
             res.render('menu/users/detail', {
