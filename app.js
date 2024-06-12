@@ -17,8 +17,6 @@ var serviceRouter = require('./routes/service');
 var pembayaranRouter = require('./routes/pembayaran');
 var contactRouter = require('./routes/contact');
 //var pemesananRouter = require('./routes/pemesanan');
-var syaratRouter = require('./routes/syarat_ketentuan');
-var kebijakanRouter = require('./routes/kebijakan_privasi');
 
 var app = express();
 
@@ -56,10 +54,7 @@ app.use('/outlet', outletRouter);
 app.use('/service', serviceRouter);
 app.use('/pembayaran', pembayaranRouter);
 app.use('/contact', contactRouter);
-//app.use('/pemesanan', pemesananRouter);
-app.use('/syarat_ketentuan', syaratRouter);
-app.use('/kebijakan_privasi', kebijakanRouter);
-
+//app.use('/pemesanan', pemesananRouter);   
 
 
 // catch 404 and forward to error handler
