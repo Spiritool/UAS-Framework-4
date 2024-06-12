@@ -22,6 +22,7 @@ class Model_Pembayaran {
                     console.log(err);
                 } else {
                     resolve(result);
+                    console.log(result);
                 }
             })
         });
@@ -29,7 +30,9 @@ class Model_Pembayaran {
 
     static async getId(id){
         return new Promise((resolve, reject) => {
-            connection.query('select * from pembayaran where id_pembayaran = ' + id, (err,rows) => {
+            connection.query(`select *, b.gambar_menu, b.nama_menu, b.harga_menu from pembayaran as a
+            join menu as b on b.id_menu=a.id_menu
+            where id_users = ` + id, (err,rows) => {
                 if(err) {
                     reject(err);
                 } else {

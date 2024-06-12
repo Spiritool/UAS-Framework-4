@@ -69,6 +69,18 @@ class Model_Menu {
         });
     }
 
+    static async getId(id_kategori){
+        return new Promise((resolve, reject) => {
+            connection.query('SELECT * FROM menu WHERE id_kategori = ?', [id_kategori], function(error, results) {
+                if (error) {
+                    return reject(error);
+                }
+                resolve(results);
+            });
+        })
+    }
+
+   
 }
 
 

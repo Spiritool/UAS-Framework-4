@@ -6,7 +6,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="../../css/style.css"> <!-- Tautan ke file CSS -->
+<link rel="stylesheet" href="../../../css/style.css"> <!-- Tautan ke file CSS -->
 </head>
 <style>
     .menu-container {
@@ -71,8 +71,17 @@
             /* Full width on smaller screens */
             max-width: calc(100% - 20px);
             /* Ensure full width on smaller screens */
+            margin-top: 30px;
         }
     }
+
+    @media (max-width: 1023px) {
+        .modal-dialog {
+            max-width: 90%;
+            /* Atur lebar modal menjadi 90% saat lebar layar 1023px atau kurang */
+        }
+    }
+
 
     .menu-button {
         padding: 10px 20px;
@@ -100,6 +109,12 @@
         /* Add margin between buttons and input */
     }
 
+
+    @media (max-width: 576px) {
+        .modal-lg {
+            max-width: 100%;
+        }
+    }
 
 
     /* Large screens: Five columns */
@@ -143,7 +158,7 @@
     }
 </style>
 
-<img src="../../images/nav_login.png" alt="Gambar Atas" class="nav-image">
+<img src="../../../images/nav_login.png" alt="Gambar Atas" class="nav-image">
 
 <button class="login-button">
     <%= email %>
@@ -160,7 +175,7 @@
     <nav>
         <!-- Logo -->
         <div class="logo">
-            <img src="../../images/HOKBEN.png" alt="Logo">
+            <img src="../../../images/HOKBEN.png" alt="Logo">
         </div>
 
         <!-- Menu -->
@@ -177,7 +192,7 @@
 
         <!-- Cart and Order Buttons -->
         <div class="cart-and-order" style="margin-right: 50px;">
-            <button class="cart-btn">
+            <button class="cart-btn" data-bs-toggle="modal" data-bs-target="#exampleModal2">
                 <i class="fas fa-cart-shopping cart-icon" style="margin-top: 4px; margin-right: 30px;"></i>
                 <span class="cart-count">0</span>
             </button>
@@ -201,17 +216,9 @@
 <!-- Rekomendasi Section -->
 <section class="Menu-section">
     <div class="menu-container">
-        <a href="/menu/users" class="menu-button active">Hoka Ramen</a>
-        <a href="#" class="menu-button">Set Menu</a>
-        <a href="#" class="menu-button">Main Menu</a>
-        <a href="#" class="menu-button">HokBen Fried Chicken</a>
-        <a href="#" class="menu-button">Fried Menu</a>
-        <a href="#" class="menu-button">Soup & Sukiyaki</a>
-        <a href="#" class="menu-button">Desserts</a>
-        <a href="#" class="menu-button">Snacks</a>
-        <a href="#" class="menu-button">Beverages</a>
-        <a href="#" class="menu-button">Side Dish</a>
-        <a href="#" class="menu-button">Take Away Bag</a>
+        <% for(var i=0; i < data_kategori.length; i++) { %>
+        <a href="/menu/users/kategori/<%= data_kategori[i].id_kategori %>" class="menu-button"><%= data_kategori[i].nama_kategori %></a>
+        <% } %>
     </div>
     <div class="Menu-cards">
         <% for(var i=0; i < data.length; i++) { %>
@@ -227,7 +234,6 @@
                         style="color: #d91319; text-decoration: underline;">Detail</a>
                     <button type="button" class="pesan-button" data-bs-toggle="modal" data-bs-target="#exampleModal"
                         data-id-menu="<%= data[i].id_menu %>" data-id-users="<%= id_users %>">+ Pesan</button>
-
                 </div>
             </div>
         </div>
@@ -238,43 +244,81 @@
 <!-- Informasi Section -->
 
 
-<!-- Modal section -->
+<!-- Modal section Order-->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-        <!-- Set modal-dialog to modal-xl for wider modal -->
         <div class="modal-content">
             <div class="modal-body">
-                <!-- Wrap the content in modal-body -->
-                <form action="/pembayaran/store" method="POST" enctype="multipart/form-data">
+                <form id="orderForm" action="/pembayaran/store" method="POST" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-12 col-md-6 my-3 my-md-auto text-center">
-                            <img class="img-fluid rounded mx-auto d-block" src="" id="modal-image" alt="Menu Image"
-                                style="height: 350px; width: 400px;"> <!-- Adjust max-height for the image -->
+                            <img class="img-fluid rounded mx-auto d-block" src="" id="modal-image" alt="Menu Image" style="height: 350px; width: 400px;">
                         </div>
                         <div class="col-12 col-md-6 my-3 my-md-auto">
-                            <h5 class="text-hokben-red text-center text-md-start" id="modal-price" style="color: red">
-                            </h5>
+                            <h5 class="text-hokben-red text-center text-md-start" id="modal-price" style="color: red"></h5>
                             <p class="small text-center text-md-start" style="color: grey">Composition :</p>
                             <p class="small text-center text-md-start" id="modal-composition"></p>
                             <div class="quantity-container text-center text-md-start mt-3">
                                 <button class="btn btn-outline-secondary quantity-btn minus-btn">-</button>
-                                <input type="number" name="jumlah" class="form-control quantity-input" value="1">
+                                <input type="number" id="quantity-input" name="jumlah" class="form-control quantity-input" value="1">
                                 <button class="btn btn-outline-secondary quantity-btn plus-btn">+</button>
                             </div>
-                            <input type="number" class="modal-menu-id" name="id_menu">
-                            <input type="number" class="modal-user-id" name="id_users">
+                            <input type="hidden" id="modal-menu-id" name="id_menu">
+                            <input type="hidden" id="modal-user-id" name="id_users">
                             <div class="text-center text-md-start mt-3">
-                                <button class="btn btn-outline-hokben mr-2"
-                                    onclick="window.history.back()">Back</button>
-                                <button type="submit" class="pesan-button submit">+ Pesan</button>
+                                <button class="btn btn-outline-hokben mr-2" data-bs-dismiss="modal">Back</button>
+                                <button type="submit" class="btn btn-primary">+ Pesan</button>
                             </div>
                         </div>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-</div>
+
+
+<!-- Modal section Checkout-->
+<div class="modal fade" id="exampleModal2" tabindex="-2" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h2 class="fw-bold mb-3">Cart <%= data_pembayaran[0].nama_menu %></h2>
+                <% for(var i=0; i < data_pembayaran.length; i++) { %>
+                <div class="row mb-3">
+                    <div class="col-md-3">
+                        <div class="list-order">
+                            <img src="/images/menu/<%= data_pembayaran[i].gambar_menu %>" height="80px" width="100px"
+                                alt="Product Image">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <p><strong><%= data_pembayaran[i].nama_menu %></strong></p>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="quantity-container text-center text-md-start mt-3">
+                            <button class="btn btn-outline-secondary quantity-btn minus-btn">-</button>
+                            <input type="number" name="jumlah" class="form-control quantity-input"
+                                value="<%= data_pembayaran[i].jumlah %>">
+                            <button class="btn btn-outline-secondary quantity-btn plus-btn">+</button>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <p>Rp. <%= data_pembayaran[i].harga_menu %></p>
+                    </div>
+                    <div class="col-12 text-center mt-2">
+                        <a href="/pembayaran/delete/<%= data_pembayaran[i].id_pembayaran %>"
+                            class="btn btn-sm btn-danger">Delete</a>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+            <div class="d-flex justify-content-end mt-4 mr-4 gap-3">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
+                <a href="/pembayaran/checkout/<%= id_users %>" class="btn btn-sm btn-warning">Checkout</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -300,89 +344,68 @@
     </div>
     </div>
     <div class="footer-logo">
-        <img src="../../images/deliver.png" alt="Logo footer" class="gambar-footer">
+        <img src="../../../images/deliver.png" alt="Logo footer" class="gambar-footer">
     </div>
     <div class="footer-sosmed">
         <p class="footer-text ikuti-kami">IKUTI KAMI</p>
-        <img src="../../images/yt.png" alt="Logo YouTube">
-        <img src="../../images/tweet.png" alt="Logo Twitter">
-        <img src="../../images/fb.png" alt="Logo Facebook">
-        <img src="../../images/ig.png" alt="Logo Instagram">
-        <img src="../../images/tiktok.png" alt="Logo TikTok">
-        <img src="../../images/wa.png" alt="Logo WhatsApp">
+        <img src="../../../images/yt.png" alt="Logo YouTube">
+        <img src="../../../images/tweet.png" alt="Logo Twitter">
+        <img src="../../../images/fb.png" alt="Logo Facebook">
+        <img src="../../../images/ig.png" alt="Logo Instagram">
+        <img src="../../../images/tiktok.png" alt="Logo TikTok">
+        <img src="../../../images/wa.png" alt="Logo WhatsApp">
     </div>
     <!-- Tambahkan gambar-gambar sosial media tambahan di sini -->
-    <img src="../../images/dw_app.png" alt="Extra Image 1" class="sosmed-extra-1">
-    <img src="../../images/dw_gugel.png" alt="Extra Image 2" class="sosmed-extra-2">
+    <img src="../../../images/dw_app.png" alt="Extra Image 1" class="sosmed-extra-1">
+    <img src="../../../images/dw_gugel.png" alt="Extra Image 2" class="sosmed-extra-2">
     <div class="text-footer">
         <p>Semua gambar dan materi dilindungi hak cipta dan merupakan milik PT Eka Bogainti.
             Penggunaan dan / atau duplikasi gambar dan materi ini tanpa izin adalah melanggar hukum.</p>
     </div>
 
-    <img src="../../images/frame_bawah.png" alt="backgorund footer" class="bg-footer">
+    <img src="../../../images/frame_bawah.png" alt="backgorund footer" class="bg-footer">
 </section>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
 </script>
-<script src="../../js/script.js"></script> <!-- Tautan ke file JavaScript -->
+<script src="../../../js/script.js"></script> <!-- Tautan ke file JavaScript -->
 </body>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var quantityInput = document.querySelector('.quantity-input');
-        var minusButton = document.querySelector('.minus-btn');
-        var plusButton = document.querySelector('.plus-btn');
+document.addEventListener('DOMContentLoaded', function () {
+    var quantityInput = document.getElementById('quantity-input');
+    var modalMenuIdInput = document.getElementById('modal-menu-id');
+    var modalUserIdInput = document.getElementById('modal-user-id');
+    var minusButton = document.querySelector('.minus-btn');
+    var plusButton = document.querySelector('.plus-btn');
 
-        minusButton.addEventListener('click', function () {
-            if (quantityInput.value > 1) {
-                quantityInput.value = parseInt(quantityInput.value) - 1;
-            }
-        });
-
-        plusButton.addEventListener('click', function () {
-            quantityInput.value = parseInt(quantityInput.value) + 1;
-        });
+    minusButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        if (quantityInput.value > 1) {
+            quantityInput.value = parseInt(quantityInput.value) - 1;
+        }
     });
 
-    document.addEventListener('DOMContentLoaded', function () {
-    var modalMenuIdInput = document.querySelector('.modal-menu-id');
-    var modalUserIdInput = document.querySelector('.modal-user-id');
-    var modalJumlahInput = document.querySelector('.quantity-input');
-
-    document.querySelectorAll('.pesan-button').forEach(function (button) {
-        button.addEventListener('click', function (event) {
-            var id_menu = event.target.dataset.idMenu; 
-            var id_users = event.target.dataset.idUsers;
-            var jumlah = modalJumlahInput.value;
-
-            modalMenuIdInput.value = id_menu;
-            modalUserIdInput.value = id_users;
-            modalJumlahInput.value = jumlah;
-        });
+    plusButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        quantityInput.value = parseInt(quantityInput.value) + 1;
     });
-});
 
-</script>
+    document.getElementById('orderForm').addEventListener('submit', function (event) {
+        event.preventDefault();
 
-<script>
-    document.querySelector('.submit').addEventListener('click', function(event) {
-        event.preventDefault(); // Mencegah pengiriman formulir default
+        var jumlah = quantityInput.value;
+        var id_menu = modalMenuIdInput.value;
+        var id_users = modalUserIdInput.value;
 
-        // Mengambil nilai dari input
-        var jumlah = document.querySelector('input[name="jumlah"]').value;
-        var id_menu = document.querySelector('.modal-menu-id').value;
-        var id_users = document.querySelector('.modal-user-id').value;
-
-        // Membuat objek data untuk dikirim ke server
         var data = {
             jumlah: jumlah,
             id_menu: id_menu,
             id_users: id_users
         };
 
-        // Mengirim data ke server menggunakan fetch API
         fetch('/pembayaran/store', {
             method: 'POST',
             headers: {
@@ -391,12 +414,10 @@
             body: JSON.stringify(data)
         })
         .then(response => {
-            // Handle respons dari server
             if (response.ok) {
-                // Jika pesanan berhasil diproses, redirect pengguna ke halaman '/menu/users'
                 window.location.href = '/menu/users';
+                console.log(response)
             } else {
-                // Jika terjadi kesalahan dalam pemrosesan pesanan, tampilkan pesan kesalahan
                 console.error('Terjadi kesalahan dalam pemrosesan pesanan.');
             }
         })
@@ -404,43 +425,35 @@
             console.error('Error:', error);
         });
     });
-</script>
 
+    var modalImage = document.getElementById('modal-image');
+    var modalPrice = document.getElementById('modal-price');
+    var modalComposition = document.getElementById('modal-composition');
 
+    document.querySelectorAll('.pesan-button').forEach(function (button) {
+        button.addEventListener('click', function (event) {
+            var id_menu = button.dataset.idMenu;
+            var id_users = button.dataset.idUsers;
 
+            var card = button.closest('.card');
+            var imageSrc = card.querySelector('.card-image').src;
+            var price = card.querySelector('.keterangan p:nth-child(2)').innerText;
+            var composition = card.querySelector('.keterangan p:nth-child(3)').innerText;
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var modal = document.getElementById('exampleModal');
-        var modalImage = document.getElementById('modal-image');
-        var modalPrice = document.getElementById('modal-price');
-        var modalComposition = document.getElementById('modal-composition');
-        var modalMenuIdInput = document.querySelector('.modal-menu-id');
-        var modalUserIdInput = document.querySelector('.modal-user-id');
+            modalImage.src = imageSrc;
+            modalPrice.innerText = 'Rp. ' + price;
+            modalComposition.innerText = composition;
 
-        document.querySelectorAll('.pesan-button').forEach(function (button) {
-            button.addEventListener('click', function (event) {
-                var id_menu = event.target.dataset
-                .idMenu; // Retrieve the id_menu from the data attribute
-                var id_users = event.target.dataset
-                .idUsers; // Retrieve the id_users from the data attribute
-
-                var card = event.target.closest('.card');
-                var imageSrc = card.querySelector('.card-image').src;
-                var price = card.querySelector('.keterangan p:nth-child(2)').innerText;
-                var composition = card.querySelector('.keterangan p:nth-child(3)').innerText;
-
-                modalImage.src = imageSrc;
-                modalPrice.innerText = 'Rp. ' + price;
-                modalComposition.innerText = composition;
-
-                // Set the value of the hidden input fields
-                modalMenuIdInput.value = id_menu;
-                modalUserIdInput.value = id_users;
-            });
+            modalMenuIdInput.value = id_menu;
+            modalUserIdInput.value = id_users;
         });
     });
+});
+
 </script>
+
+
+
 
 
 </html>

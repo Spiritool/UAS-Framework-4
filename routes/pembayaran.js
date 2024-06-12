@@ -3,33 +3,42 @@ var router = express.Router();
 var connection = require('../config/database.js');
 const Model_Pembayaran = require('../model/Model_Pembayaran.js');
 const Model_Users = require('../model/Model_Users.js')
+const Model_Service = require('../model/Model_Service.js');
+const Model_Menu = require('../model/Model_Menu.js');
 
-router.get('/create', async function (req, res, next) {
-try {
-    let level_users = req.session.level;
-    let id = req.session.userId;
-    let Data = await Model_Users.getId(id);
-    if(Data[0].level_users == "2") {
-    res.render('service/create', {
-        nama_service: '',
-    })
+router.get('/checkout/:(id)', async function (req, res, next) {
+    try {
+        let id = req.params.id; // Ambil ID dari URL
+        let level_users = req.session.level;
+        let Data = await Model_Pembayaran.getId(id); // Panggil fungsi untuk mendapatkan data berdasarkan ID
+        let data_s = await Model_Service.getAll();
+        console.log("Data:", Data); // Tambahkan console.log untuk menampilkan Data
+        if (Data.length > 0 && Data[0].level_users == "1") { // Periksa apakah ada data dan level_users adalah "1"
+            res.render('pembayaran/checkout', {
+                data: Data,
+                email: Data[0].email,
+                id_users: Data[0].id_users,
+                data_service: data_s
+            });
+        } else {
+            req.flash('failure', 'Anda harus admin');
+            res.redirect('/sevice');
+            console.log(Data[0].level_users);
+        }
+    } catch (error) {
+        req.flash('error', 'Terjadi kesalahan saat mengambil data');
+        res.redirect('/menu/users');
+        console.error(error); // Tampilkan error di konsol
     }
-    else if (Data[0].level_users == "1"){
-        req.flash('failure', 'Anda bukan admin');
-        res.redirect('/sevice')
-    }
-} catch (Data) {
-    req.flash('invalid', 'Anda harus login');
-    res.redirect('/login')
-}
-})
+});
+
 
 router.post('/store', async function (req, res, next) {
     try {
-        let { id_users, id_menu, jumlah} = req.body;
+        let { id_users, id_menu, jumlah } = req.body;
         let Data = {
             id_users, 
-            id_menu, 
+            id_menu,
             jumlah,
             status_pembayaran: "belum dibayar"
         }
@@ -43,7 +52,35 @@ router.post('/store', async function (req, res, next) {
     }
 })
 
+router.post('/update/(:id)', async function (req, res, next) {
+    // try {
+    let id = req.params.id;
+    let rows = await Model_Menu.getId(id);
 
+    let {
+        id_service
+    } = req.body;
+    let Data = {
+        id_service,
+        status_pembayaran: "selesai",
+    }
+    await Model_Pembayaran.Update(id, Data);
+    console.log(Data);
+    req.flash('success', 'Berhasil mengubah data');
+    res.redirect('/menu/users')
+    // } catch {
+    //     req.flash('error', 'terjadi kesalahan pada fungsi');
+    //     res.redirect('/menu');
+    // }
+})
+
+
+router.get('/delete/(:id)', async function (req, res) {
+    let id = req.params.id;
+    await Model_Pembayaran.Delete(id);
+    req.flash('success', 'Berhasil Menghapus data!');
+    res.redirect('/menu/users');
+})
 
 
 module.exports = router;
