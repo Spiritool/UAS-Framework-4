@@ -50,7 +50,7 @@ router.post('/store', async function (req, res, next) {
             id_users, 
             id_menu,
             jumlah,
-            status_pembayaran: "belum dibayar"
+            status_pembayaran: "order"
         }
         console.log(Data);
         await Model_Pembayaran.Store(Data);
@@ -84,6 +84,17 @@ router.post('/update/(:id)', async function (req, res, next) {
     }
 })
 
+router.post('/update', async (req, res) => {
+    const { id_pembayaran, jumlah } = req.body;
+
+    try {
+        const result = await Model_Pembayaran.Updatejumlah(id_pembayaran, { jumlah });
+        res.json({ success: true });
+    } catch (error) {
+        console.error('Error updating jumlah:', error);
+        res.json({ success: false, message: 'Gagal memperbarui jumlah' });
+    }
+});
 
 router.get('/delete/(:id)', async function (req, res) {
     let id = req.params.id;
