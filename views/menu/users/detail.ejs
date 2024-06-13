@@ -260,5 +260,20 @@
     });
 </script>
 
+<script>
+    function checkLogin() {
+        // Mengambil nilai email dari elemen yang sesuai
+        var email = '<%= email %>';
+
+        // Cek jika email adalah 'Guest'
+        if (email === 'Guest') {
+            // Arahkan pengguna ke halaman login
+            window.location.href = '/login';
+        } else {
+            console.log('Pengguna sudah login');
+        }
+    }
+</script>
+
 
 </html>
