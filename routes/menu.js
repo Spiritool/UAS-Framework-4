@@ -176,27 +176,60 @@ router.get('/delete/(:id)', async function (req, res) {
     }
 })
 
+// router.get('/users', async function (req, res, next) {
+//     try {
+//         let level_users = req.session.level;
+//         let id = req.session.userId;
+//         let Data = await Model_Users.getId(id);
+//         let rows = await Model_Menu.getAll();
+//         let bayar = await Model_Pembayaran.getId(id);
+//         let kategori = await Model_Kategori.getAll();
+//         res.render('menu/users/index', {
+//             data: rows,
+//             email: Data[0].email,
+//             id_users: req.session.userId,
+//             data_pembayaran: bayar,
+//             data_kategori: kategori
+//         })
+//         console.log(bayar);
+//     } catch {
+//         req.flash('invalid', 'Anda harus login');
+//         // res.redirect('/login')
+//     }
+// });
+
 router.get('/users', async function (req, res, next) {
     try {
-        let level_users = req.session.level;
-        let id = req.session.userId;
-        let Data = await Model_Users.getId(id);
+        let id = req.session.userId || null;
+        let level_users = req.session.level || null;
+        let email = 'Guest';
+        let bayar = [];
+        let Data = [];
         let rows = await Model_Menu.getAll();
-        let bayar = await Model_Pembayaran.getId(id);
         let kategori = await Model_Kategori.getAll();
+
+        if (id) {
+            Data = await Model_Users.getId(id);
+            email = (Data[0] && Data[0].email) ? Data[0].email : 'Guest';
+            bayar = await Model_Pembayaran.getId(id);
+        }
+
         res.render('menu/users/index', {
             data: rows,
-            email: Data[0].email,
-            id_users: req.session.userId,
+            email: email,
+            id_users: id,
             data_pembayaran: bayar,
-            data_kategori: kategori
-        })
+            data_kategori: kategori,
+            data_users: Data
+        });
         console.log(bayar);
-    } catch {
-        req.flash('invalid', 'Anda harus login');
-        // res.redirect('/login')
+    } catch (error) {
+        console.log(error);
+        req.flash('invalid', 'An error occurred');
+        res.redirect('/login');
     }
 });
+
 
 router.get('/users/(:id)', async function (req, res, next) {
     try {
